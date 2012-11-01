@@ -19,14 +19,12 @@ view = {
   getCity : function (e) {
       e.preventDefault();
       var city = $('input').attr('value');
-
-      console.log(city)
       var geocoder = new google.maps.Geocoder();
 
       if (geocoder) {
           geocoder.geocode({ 'address': city }, function (results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
-                  view.searchByLatLong(location);
+                  view.searchByLatLong(results[0].geometry.location);
               }
               else {
                   console.log("Geocoding failed: " + status);
@@ -35,8 +33,9 @@ view = {
       }
   },
   searchByLatLong: function(location){
-      var lng = location.Ya;
-      var lat = location.Za;
+      console.log(location);
+      var lng = location.Za;
+      var lat = location.Ya;
 
       $.ajax({
           url: 'http://api.yr.no/weatherapi/locationforecast/1.8/',
@@ -207,11 +206,11 @@ view = {
         break;
       }
       case "LIGHTCLOUD": {
-        return "Sun";
+        return "Beach";
         break;
       }
       case "PARTLYCLOUD": {
-        return "Cloud";
+        return "Gray";
         break;
       }
       case "CLOUD": {
@@ -219,15 +218,15 @@ view = {
         break;
       }
       case "LIGHTRAINSUN": {
-        return "Sun";
+        return "Rainbow";
         break;
       }
       case "LIGHTRAINTHUNDERSUN": {
-        return "Thunder";
+        return "Bipolar";
         break;
       }
       case "SLEETSUN": {
-        return "Sun";
+        return "Cold";
         break;
       }
       case "SNOWSUN": {
@@ -243,11 +242,11 @@ view = {
         break;
       }
       case "RAINTHUNDER": {
-        return "Thunder";
+        return "Storm";
         break;
       }
       case "SLEET": {
-        return "Rain";
+        return "Sleet";
         break;
       }
       case "SNOW": {
@@ -255,7 +254,7 @@ view = {
         break;
       }
       case "SNOWTHUNDER": {
-        return "Thunder";
+        return "Thundersnow";
         break;
       }
       case "FOG": {
@@ -263,7 +262,7 @@ view = {
         break;
       }
       case "LIGHTCLOUD": {
-        return "Cloud";
+        return "Overcast";
         break;
       }
       case "LIGHTRAINSUN": {
@@ -275,15 +274,15 @@ view = {
         break;
       }
       case "SLEETSUNTHUNDER": {
-        return "Thunder";
+        return "Depression";
         break;
       }
       case "SNOWSUNTHUNDER": {
-        return "Thunder";
+        return "Anger";
         break;
       }
       case "LIGHTRAINTHUNDER": {
-        return "Thunder";
+        return "Gloom";
         break;
       }
       case "SLEETTHUNDER": {
