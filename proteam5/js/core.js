@@ -6,6 +6,7 @@ var sp = getSpotifyApi(1),
   view;
 
 view = {
+  city : '',
   init : function() {
 
       $('a').click(function(e){
@@ -20,7 +21,7 @@ view = {
       e.preventDefault();
       var city = $('input').attr('value');
       var geocoder = new google.maps.Geocoder();
-
+      view.city = city;
       if (geocoder) {
           geocoder.geocode({ 'address': city }, function (results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
@@ -92,10 +93,11 @@ view = {
   onSuccess : function (data) {
     var firstActualTime = $(data).find("time")[1],
         symbol = $(firstActualTime).find("symbol").attr("id");
-
-    search = new models.Search("title:" + view.getSearchWordForSymbol(symbol)); 
+    searchWord = view.getSearchWordForSymbol(symbol);
+    search = new models.Search("title:" + searchWord.term);
     view.doSearch();
     view.getSymbolImg(view.getSymbolId(symbol));
+    view.printCopy(searchWord);
   },
 
   onFailure : function(data) {
@@ -120,7 +122,9 @@ view = {
       pup.removeClass('poop');
     }
   },
-
+  printCopy : function(copy){
+    $('#bubble').text(copy.format(view.city));
+  },
   getSymbolId : function (symbol) {
     switch(symbol)  {
       case "SUN": {
@@ -221,91 +225,75 @@ view = {
   getSearchWordForSymbol : function (symbol) {
     switch(symbol)  {
       case "SUN": {
-        return "Sun";
+        return {"term": "Sun", "copy": "Woof, sunny {0}, here\'s a lovely melody just for you!"};
         break;
       }
       case "LIGHTCLOUD": {
-        return "Beach";
+        return {"term": "Beach", "copy": "Things are looking up for you {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "PARTLYCLOUD": {
-        return "Sunny";
+        return {"term": "Sunny", "copy": "The sun is kind of shining {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "CLOUD": {
-        return "Cloud";
+          return {"term": "Cloud", "copy": "Feeling kind of cloudy, {0}? Here\'s a lovely melody just for you!"};
         break;
       }
       case "LIGHTRAINSUN": {
-        return "Rainbow";
+          return {"term": "Rainbow", "copy": "Could be a rainbow out there, {0}! Go find a pot of gold! Here\'s a tune for your search!"};
         break;
       }
       case "LIGHTRAINTHUNDERSUN": {
-        return "Bipolar";
+          return {"term": "Bipolar", "copy": "Kind of crazy out there, eh {0}? Here\'s a lovely melody just for you!"};
         break;
       }
       case "SLEETSUN": {
-        return "Cold";
+          return {"term": "Cold", "copy": "Whoooo it's really cold out there, {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "SNOWSUN": {
-        return "Snow";
+          return {"term": "Snow", "copy": "Lovely snow, {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "LIGHTRAIN": {
-        return "Rain";
+          return {"term": "Rain", "copy": "Don\'t freak out, it's just a few raindrops {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "RAIN": {
-        return "Rain";
+          return {"term": "Rain", "copy": "Singin' in the rain, {0}! here\'s a lovely melody just for you!"};
         break;
       }
       case "RAINTHUNDER": {
-        return "Storm";
+          return {"term": "Storm", "copy": "It's ugly out there, {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "SLEET": {
-        return "Sleet";
+          return {"term": "Sleet", "copy": "What the hell with this weather, {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "SNOW": {
-        return "Snow";
+          return {"term": "Snow", "copy": "Boy, it's cold out, {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "SNOWTHUNDER": {
-        return "Thundersnow";
+          return {"term": "Thundersnow", "copy": "Seriously snowing out there, {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "FOG": {
-        return "Fog";
-        break;
-      }
-      case "LIGHTCLOUD": {
-        return "Overcast";
-        break;
-      }
-      case "LIGHTRAINSUN": {
-        return "Sun";
-        break;
-      }
-      case "SNOWSUN": {
-        return "Snow";
+          return {"term": "Fog", "copy": "It's hard to see out there, {0}! Watch out for the Ripper? Here\'s a lovely melody just for you!"};
         break;
       }
       case "SLEETSUNTHUNDER": {
-        return "Depression";
-        break;
-      }
-      case "SNOWSUNTHUNDER": {
-        return "Anger";
+          return {"term": "Depression", "copy": "{0}, I'll be honest with you, this weather sucks. Here\'s a lovely melody just for you!"};
         break;
       }
       case "LIGHTRAINTHUNDER": {
-        return "Gloom";
+          return {"term": "Gloom", "copy": "This weather totally sucks, {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "SLEETTHUNDER": {
-        return "Thunder";
+          return {"term": "thunder", "copy": "Cover your ears, {0}! here\'s a lovely melody just for you!"};
         break;
       }
       default: {
