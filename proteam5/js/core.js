@@ -53,8 +53,8 @@ view = {
       var multiple_tracks_playlist = new models.Playlist();
 
       search.observe(models.EVENT.CHANGE, function() {
-        search.tracks.forEach(function(track) {
-
+        var tracks = view.randomizeSearch(search.tracks);
+        tracks.forEach(function(track) {
           multiple_tracks_playlist.add(track.uri);
         });
       });
@@ -77,7 +77,18 @@ view = {
       //important dont remove!!
       search.appendNext();
   },
-
+  randomizeSearch: function(results){
+      var i = results.length;
+      if ( i == 0 ) return false;
+      while ( --i ) {
+          var j = Math.floor( Math.random() * ( i + 1 ) );
+          var tempi = results[i];
+          var tempj = results[j];
+          results[i] = tempj;
+          results[j] = tempi;
+      }
+      return results;
+  },
   onSuccess : function (data) {
     var firstActualTime = $(data).find("time")[1],
         symbol = $(firstActualTime).find("symbol").attr("id");
