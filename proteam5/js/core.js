@@ -71,8 +71,8 @@ view = {
 
       var $playlist = $('#play-list');
 
-      $playlist.html('');
-      $playlist.append(multiple_tracks_player.node);
+      //$playlist.html('');
+      //$playlist.append(multiple_tracks_player.node);
 
       //important dont remove!!
       search.appendNext();
@@ -93,7 +93,7 @@ view = {
     var firstActualTime = $(data).find("time")[1],
         symbol = $(firstActualTime).find("symbol").attr("id");
 
-    search = new models.Search(view.getSearchWordForSymbol(symbol)); 
+    search = new models.Search("title:" + view.getSearchWordForSymbol(symbol)); 
     view.doSearch();
     view.getSymbolImg(view.getSymbolId(symbol));
   },
@@ -221,7 +221,7 @@ view = {
         break;
       }
       case "PARTLYCLOUD": {
-        return "Gray";
+        return "Sunny";
         break;
       }
       case "CLOUD": {
