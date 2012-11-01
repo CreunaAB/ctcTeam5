@@ -4,6 +4,9 @@
   "AppIcon": {
     "36x18": "HelloWorld.png"
   },
+  "RequiredPermissions": [
+    "http://api.yr.no/"
+  ],
   "AppName": {
     "en": "Creuna Tech Challenge"
   },
