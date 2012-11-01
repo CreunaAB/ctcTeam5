@@ -7,15 +7,6 @@ var sp = getSpotifyApi(1),
 
 view = {
   init : function() {
-      $.ajax({
-        url: 'http://api.yr.no/weatherapi/locationforecast/1.8/?lat=59.33;lon=18.07',
-        dataType: 'xml',
-        success: view.onSuccess,
-        error: view.onFailure
-      });
-
-
-
       // Listen to the eventlisteners indicating change of tab
       search.localResults = models.LOCALSEARCHRESULTS.APPEND;
       search.searchAlbums = false;
@@ -44,16 +35,172 @@ view = {
           multiple_tracks_player_HTML.appendChild(multiple_tracks_player.node);
 
       search.appendNext();
+
+
+      $('a').click(function(e){
+        e.preventDefault();
+        view.getSongsAndIconForLocation($(this).attr("id"));
+      });
   },  
 
+  getSongsAndIconForLocation : function(location) {
+     switch(location)  {
+      case "stockholm": {
+        $.ajax({
+          url: 'http://api.yr.no/weatherapi/locationforecast/1.8/?lat=59.33;lon=18.07',
+          dataType: 'xml',
+          success: view.onSuccess,
+          error: view.onFailure
+        });
+        break;
+      }
+      case "puertorico": {
+       $.ajax({
+          url: 'http://api.yr.no/weatherapi/locationforecast/1.8/?lat=18.2613;lon=66.4360',
+          dataType: 'xml',
+          success: view.onSuccess,
+          error: view.onFailure
+        });
+        break;
+      }
+      case "sydney": {
+       $.ajax({
+          url: 'http://api.yr.no/weatherapi/locationforecast/1.8/?lat=33.8683;lon=151.2086',
+          dataType: 'xml',
+          success: view.onSuccess,
+          error: view.onFailure
+        });
+        break;
+      }
+      default : {
+        $.ajax({
+          url: 'http://api.yr.no/weatherapi/locationforecast/1.8/?lat=59.33;lon=18.07',
+          dataType: 'xml',
+          success: view.onSuccess,
+          error: view.onFailure
+        });
+      }
+    }
+  },
+
   onSuccess : function (data) {
-    var firstActualTime = $(data).find("time")[1];
-    var symbol = $(firstActualTime).find("symbol").attr("id");
-      console.log(firstActualTime, symbol, "success");
+    var firstActualTime = $(data).find("time")[1],
+        symbol = $(firstActualTime).find("symbol").attr("id");
+
+
+    view.getSymbolImg(view.getSymbolId(symbol));
   },
 
   onFailure : function(data) {
       console.log(data, "fejl");
+  },
+
+  getSymbolImg : function (symbol) {
+    var url = 'http://api.met.no/weatherapi/weathericon/1.0/?symbol=' + symbol + ';content_type=image/png',
+      img = '<img id="icon" src="' + url + '" alt="bild" />';
+
+    if (!$('#icon').length) {
+      $('body').append(img);
+    } else {
+      $('#icon').attr('src', url);
+    }
+  },
+
+  getSymbolId : function (symbol) {
+    switch(symbol)  {
+      case "SUN": {
+        return 1;
+        break;
+      }
+      case "LIGHTCLOUD": {
+        return 2;
+        break;
+      }
+      case "PARTLYCLOUD": {
+        return 3;
+        break;
+      }
+      case "CLOUD": {
+        return 4;
+        break;
+      }
+      case "LIGHTRAINSUN": {
+        return 5;
+        break;
+      }
+      case "LIGHTRAINTHUNDERSUN": {
+        return 6;
+        break;
+      }
+      case "SLEETSUN": {
+        return 7;
+        break;
+      }
+      case "SNOWSUN": {
+        return 8;
+        break;
+      }
+      case "LIGHTRAIN": {
+        return 9;
+        break;
+      }
+      case "RAIN": {
+        return 10;
+        break;
+      }
+      case "RAINTHUNDER": {
+        return 11;
+        break;
+      }
+      case "SLEET": {
+        return 12;
+        break;
+      }
+      case "SNOW": {
+        return 13;
+        break;
+      }
+      case "SNOWTHUNDER": {
+        return 14;
+        break;
+      }
+      case "FOG": {
+        return 15;
+        break;
+      }
+      case "LIGHTCLOUD": {
+        return 16;
+        break;
+      }
+      case "LIGHTRAINSUN": {
+        return 17;
+        break;
+      }
+      case "SNOWSUN": {
+        return 18;
+        break;
+      }
+      case "SLEETSUNTHUNDER": {
+        return 19;
+        break;
+      }
+      case "SNOWSUNTHUNDER": {
+        return 20;
+        break;
+      }
+      case "LIGHTRAINTHUNDER": {
+        return 21;
+        break;
+      }
+      case "SLEETTHUNDER": {
+        return 22;
+        break;
+      }
+      default: {
+        return 1;
+        break;
+      }
+    };
   }
 }
 
