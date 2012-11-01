@@ -21,10 +21,10 @@ view = {
       e.preventDefault();
       var city = $('input').attr('value');
       var geocoder = new google.maps.Geocoder();
-      view.city = city;
       if (geocoder) {
           geocoder.geocode({ 'address': city }, function (results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
+                  view.city = results[0].formatted_address;
                   view.searchByLatLong(results[0].geometry.location);
               }
               else {
@@ -93,11 +93,12 @@ view = {
   onSuccess : function (data) {
     var firstActualTime = $(data).find("time")[1],
         symbol = $(firstActualTime).find("symbol").attr("id");
+
     searchWord = view.getSearchWordForSymbol(symbol);
     search = new models.Search("title:" + searchWord.term);
     view.doSearch();
     view.getSymbolImg(view.getSymbolId(symbol));
-    view.printCopy(searchWord);
+    view.printCopy(String(searchWord.copy));
   },
 
   onFailure : function(data) {
@@ -107,23 +108,30 @@ view = {
   getSymbolImg : function (symbol) {
     var url = 'http://api.met.no/weatherapi/weathericon/1.0/?symbol=' + symbol + ';content_type=image/png',
       img = '<img id="icon" src="' + url + '" alt="bild" />',
-      pup = $('.pup');
+      pup = $('.pup'),
+      icon = $('#icon');
 
-    if (!$('#icon').length) {
-      pup.addClass('poop')
-      $('.dog').append(img);
-      window.setTimeout(function() {
-        pup.removeClass('poop')
-      }, 200);
-      
-    } else {
+      icon.remove();
       pup.addClass('poop');
-      $('#icon').attr('src', url);
-      pup.removeClass('poop');
-    }
+      $('.dog').prepend(img);
+
+      window.setTimeout(function() {
+        pup.removeClass('poop');
+          $('#icon').animate({
+              'bottom' : '150px'
+            }, 'slow', function () {
+            
+             $('#icon').animate({
+                'right' : '250px',
+                'width' : '100px'
+             }, 'slow');
+
+            });
+      }, 200);
   },
   printCopy : function(copy){
-    $('#bubble').text(copy.format(view.city));
+    $('.bubble').text(view.formatString(copy, view.city));
+    
   },
   getSymbolId : function (symbol) {
     switch(symbol)  {
@@ -220,6 +228,16 @@ view = {
         break;
       }
     }
+  },
+
+  formatString : function() {
+      var s = arguments[0];
+      for (var i = 0; i < arguments.length - 1; i++) {       
+        var reg = new RegExp("\\{" + i + "\\}", "gm");             
+        s = s.replace(reg, arguments[i + 1]);
+      }
+
+      return s;
   },
 
   getSearchWordForSymbol : function (symbol) {

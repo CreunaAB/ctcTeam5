@@ -10,7 +10,7 @@ h1 {
   font-family: 'Paprika', cursive;
   font-size:50px;
   text-align: center;
-  margin-bottom:150px;
+  margin-bottom:60px;
 }
 
 .start {
@@ -51,46 +51,45 @@ button {
 }
 
 #icon {
-  position: absolute;
-  right:0;
-  bottom:10px;
+  position:absolute;
+  bottom:15px;
+  right:280px;
 }
 
 .dog {
   position: relative;
+  margin:0 auto 60px;
+  width: 100%;
   overflow: hidden;
-  margin:0 auto;
-  width:230px;
+}
+
+.pup {
+  display:block;
+  float:right;
+  margin: 0 300px 0 0;
 }
 
 .bubble {
   background-color:#fff;
   color:#000;
   font-size:30px;
+  line-height: 40px;
   text-align: center;
   padding:30px;
-  left:40%;
-  position:absolute;
-  top:120px;
   border-radius: 25px;
-}
-
-.bubble:after {
-  border-top:10px solid #fff;
-  border-right:10px solid transparent;
-  border-left:10px solid transparent;
-
+  margin:0 auto;
+  position: relative;
 }
 
 .bubble:after {
   content: "";
   position: absolute;
-  bottom: -4px;
+  bottom: -10px;
   left: 50%;
   margin-left: -5px;
   width: 0;
   height: 0;
-  border-left: 30px solid transparent;
-  border-right: 30px solid transparent;
-  border-top: 30px solid #fff;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #fff;
 }
