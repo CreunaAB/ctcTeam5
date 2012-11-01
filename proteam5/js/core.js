@@ -104,12 +104,20 @@ view = {
 
   getSymbolImg : function (symbol) {
     var url = 'http://api.met.no/weatherapi/weathericon/1.0/?symbol=' + symbol + ';content_type=image/png',
-      img = '<img id="icon" src="' + url + '" alt="bild" />';
+      img = '<img id="icon" src="' + url + '" alt="bild" />',
+      pup = $('.pup');
 
     if (!$('#icon').length) {
-      $('.pup').before(img);
+      pup.addClass('poop')
+      $('.dog').append(img);
+      window.setTimeout(function() {
+        pup.removeClass('poop')
+      }, 200);
+      
     } else {
+      pup.addClass('poop');
       $('#icon').attr('src', url);
+      pup.removeClass('poop');
     }
   },
 

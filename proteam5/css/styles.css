@@ -7,6 +7,7 @@ body {
 }
 
 h1 {
+  font-family: 'Paprika', cursive;
   font-size:50px;
   text-align: center;
   margin-bottom:150px;
@@ -14,46 +15,82 @@ h1 {
 
 .start {
   margin:0 auto;
-  width:80%;
+  padding-bottom:50px;
+  width:85%;
 }
 
 input {
   border-radius: 5px;
   border:0;
   box-shadow:0px 0px 10px rgba(0, 0, 0, 0.5) inset;
+  float:left;
   font-size:30px;
   height:30px;
-  padding: 15px 20px;
-  width:100%;
+  padding: 15px 2%;
+  width:75%;
 }
 
 button {
-  border-radius: 25px;
+  border-radius: 5px;
   border:none;
   background-color: #fff;
-  box-shadow:0px 0px 10px rgba(0, 0, 0, 0);
+  box-shadow:0px 0px 10px rgba(0, 0, 0, 0.5) inset;
+  float:right;
   cursor:pointer;
   display:block;
   font-size:25px;
-  margin: 50px auto 0;
-  padding:10px;
-  width:30%;
+  margin: 0px auto 0;
+  padding:15px 1%;
+  width:20%;
 }
 
-.pup {
-  float:right;
+
+.poop {
+   transform: rotate(-45deg);
+   -webkit-transform: rotate(-45deg);
 }
 
 #icon {
-  float:left;
-  width:150px;
+  position: absolute;
+  right:0;
+  bottom:10px;
+}
+
+.dog {
+  position: relative;
+  overflow: hidden;
+  margin:0 auto;
+  width:230px;
 }
 
 .bubble {
   background-color:#fff;
+  color:#000;
+  font-size:30px;
+  text-align: center;
+  padding:30px;
+  left:40%;
   position:absolute;
-  top:80px;
-  width: 300px;
-  height:100px;
+  top:120px;
   border-radius: 25px;
+}
+
+.bubble:after {
+  border-top:10px solid #fff;
+  border-right:10px solid transparent;
+  border-left:10px solid transparent;
+
+}
+
+.bubble:after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  margin-left: -5px;
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 30px solid #fff;
 }
