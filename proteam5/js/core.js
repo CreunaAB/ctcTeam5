@@ -221,87 +221,71 @@ view = {
         break;
       }
       case "LIGHTCLOUD": {
-        return {"term": "Beach", "copy": "{0}, here\'s a lovely melody just for you!"};
+        return {"term": "Beach", "copy": "Things are looking up for you {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "PARTLYCLOUD": {
-        return {"term": "Sunny", "copy": "{0}, here\'s a lovely melody just for you!"};
+        return {"term": "Sunny", "copy": "The sun is kind of shining {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "CLOUD": {
-          return {"term": "Cloud", "copy": "{0}, here\'s a lovely melody just for you!"};
+          return {"term": "Cloud", "copy": "Feeling kind of cloudy, {0}? Here\'s a lovely melody just for you!"};
         break;
       }
       case "LIGHTRAINSUN": {
-          return {"term": "Rainbow", "copy": "{0}, here\'s a lovely melody just for you!"};
+          return {"term": "Rainbow", "copy": "Could be a rainbow out there, {0}! Go find a pot of gold! Here\'s a tune for your search!"};
         break;
       }
       case "LIGHTRAINTHUNDERSUN": {
-          return {"term": "Bipolar", "copy": "{0}, here\'s a lovely melody just for you!"};
+          return {"term": "Bipolar", "copy": "Kind of crazy out there, eh {0}? Here\'s a lovely melody just for you!"};
         break;
       }
       case "SLEETSUN": {
-          return {"term": "Cold", "copy": "{0}, here\'s a lovely melody just for you!"};
+          return {"term": "Cold", "copy": "Whoooo it's really cold out there, {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "SNOWSUN": {
-          return {"term": "Snow", "copy": "{0}, here\'s a lovely melody just for you!"};
+          return {"term": "Snow", "copy": "Lovely snow, {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "LIGHTRAIN": {
-          return {"term": "Rain", "copy": "{0}, here\'s a lovely melody just for you!"};
+          return {"term": "Rain", "copy": "Don\'t freak out, it's just a few raindrops {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "RAIN": {
-          return {"term": "Rain", "copy": "{0}, here\'s a lovely melody just for you!"};
+          return {"term": "Rain", "copy": "Singin' in the rain, {0}! here\'s a lovely melody just for you!"};
         break;
       }
       case "RAINTHUNDER": {
-          return {"term": "Storm", "copy": "{0}, here\'s a lovely melody just for you!"};
+          return {"term": "Storm", "copy": "It's ugly out there, {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "SLEET": {
-          return {"term": "Sleet", "copy": "{0}, here\'s a lovely melody just for you!"};
+          return {"term": "Sleet", "copy": "What the hell with this weather, {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "SNOW": {
-          return {"term": "Snow", "copy": "{0}, here\'s a lovely melody just for you!"};
+          return {"term": "Snow", "copy": "Boy, it's cold out, {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "SNOWTHUNDER": {
-          return {"term": "Thundersnow", "copy": "{0}, here\'s a lovely melody just for you!"};
+          return {"term": "Thundersnow", "copy": "Seriously snowing out there, {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "FOG": {
-          return {"term": "Fog", "copy": "{0}, here\'s a lovely melody just for you!"};
-        break;
-      }
-      case "LIGHTCLOUD": {
-          return {"term": "Overcast", "copy": "{0}, here\'s a lovely melody just for you!"};
-        break;
-      }
-      case "LIGHTRAINSUN": {
-          return {"term": "Sun", "copy": "{0}, here\'s a lovely melody just for you!"};
-        break;
-      }
-      case "SNOWSUN": {
-          return {"term": "Snow", "copy": "{0}, here\'s a lovely melody just for you!"};
+          return {"term": "Fog", "copy": "It's hard to see out there, {0}! Watch out for the Ripper? Here\'s a lovely melody just for you!"};
         break;
       }
       case "SLEETSUNTHUNDER": {
-          return {"term": "Depression", "copy": "{0}, here\'s a lovely melody just for you!"};
-        break;
-      }
-      case "SNOWSUNTHUNDER": {
-          return {"term": "Anger", "copy": "{0}, here\'s a lovely melody just for you!"};
+          return {"term": "Depression", "copy": "{0}, I'll be honest with you, this weather sucks. Here\'s a lovely melody just for you!"};
         break;
       }
       case "LIGHTRAINTHUNDER": {
-          return {"term": "Gloom", "copy": "{0}, here\'s a lovely melody just for you!"};
+          return {"term": "Gloom", "copy": "This weather totally sucks, {0}! Here\'s a lovely melody just for you!"};
         break;
       }
       case "SLEETTHUNDER": {
-          return {"term": "Thundersnow", "copy": "{0}, here\'s a lovely melody just for you!"};
+          return {"term": "thunder", "copy": "Cover your ears, {0}! here\'s a lovely melody just for you!"};
         break;
       }
       default: {
