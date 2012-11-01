@@ -8,50 +8,20 @@ var sp = getSpotifyApi(1),
 view = {
   init : function() {
 
-      $.ajax({
-        url: 'http://api.yr.no/weatherapi/locationforecast/1.8/?lat=59.33;lon=18.07',
-        dataType: 'xml',
-        success: view.onSuccess,
-        error: view.onFailure
-      });
-
-      // Listen to the eventlisteners indicating change of tab
-      search.localResults = models.LOCALSEARCHRESULTS.APPEND;
-      search.searchAlbums = false;
-      var multiple_tracks_playlist = new models.Playlist();
-
-      search.observe(models.EVENT.CHANGE, function() {
-        search.tracks.forEach(function(track) {
-//          console.log(track);
-          multiple_tracks_playlist.add(track.uri);
-        });
-      });
-
-      console.log(multiple_tracks_playlist);
-
-      var multiple_tracks_player = new views.List(multiple_tracks_playlist);
-//      multiple_tracks_player.track = null; // Don't play the track right away
-      multiple_tracks_player.context = multiple_tracks_playlist;
-
-      console.log(multiple_tracks_playlist.data.uri);
-
-      models.player.play(multiple_tracks_playlist.data.uri);
-
-      var $playlist = $('#play-list'),
-          play_list_href = '<a href="' + multiple_tracks_playlist.uri + ' ">Play</a>';
-
-      $playlist.append(multiple_tracks_player.node);
-//      $playlist.prepend(play_list_href);
-
-      //important dont remove!!
-      search.appendNext();
-
-
       $('a').click(function(e){
         e.preventDefault();
         view.getSongsAndIconForLocation($(this).attr("id"));
       });
+
+      $('button').click(view.getCity);
   },  
+
+  getCity : function (e) {
+      e.preventDefault();
+      var city = $('input').attr('value');
+
+      console.log(city)
+  },
 
   getSongsAndIconForLocation : function(location) {
      switch(location)  {
@@ -93,11 +63,45 @@ view = {
     }
   },
 
+  doSearch : function() {
+      // Listen to the eventlisteners indicating change of tab
+      search.localResults = models.LOCALSEARCHRESULTS.APPEND;
+      search.searchAlbums = false;
+      var multiple_tracks_playlist = new models.Playlist();
+
+      search.observe(models.EVENT.CHANGE, function() {
+        search.tracks.forEach(function(track) {
+//          console.log(track);
+          multiple_tracks_playlist.add(track.uri);
+        });
+      });
+
+      console.log(multiple_tracks_playlist);
+
+      var multiple_tracks_player = new views.List(multiple_tracks_playlist);
+//      multiple_tracks_player.track = null; // Don't play the track right away
+      multiple_tracks_player.context = multiple_tracks_playlist;
+
+      console.log(multiple_tracks_playlist.data.uri);
+
+      models.player.play(multiple_tracks_playlist.data.uri);
+
+      var $playlist = $('#play-list'),
+          play_list_href = '<a href="' + multiple_tracks_playlist.uri + ' ">Play</a>';
+      $playlist.html('');
+      $playlist.append(multiple_tracks_player.node);
+//      $playlist.prepend(play_list_href);
+
+      //important dont remove!!
+      search.appendNext();
+  },
+
   onSuccess : function (data) {
     var firstActualTime = $(data).find("time")[1],
         symbol = $(firstActualTime).find("symbol").attr("id");
 
-
+    search = new models.Search(view.getSearchWordForSymbol(symbol)); 
+    view.doSearch();
     view.getSymbolImg(view.getSymbolId(symbol));
   },
 
@@ -110,7 +114,7 @@ view = {
       img = '<img id="icon" src="' + url + '" alt="bild" />';
 
     if (!$('#icon').length) {
-      $('body').append(img);
+      $('h1').after(img);
     } else {
       $('#icon').attr('src', url);
     }
@@ -210,12 +214,106 @@ view = {
         return 1;
         break;
       }
-    };
+    }
+  },
+
+  getSearchWordForSymbol : function (symbol) {
+    switch(symbol)  {
+      case "SUN": {
+        return "Sun";
+        break;
+      }
+      case "LIGHTCLOUD": {
+        return "Sun";
+        break;
+      }
+      case "PARTLYCLOUD": {
+        return "Cloud";
+        break;
+      }
+      case "CLOUD": {
+        return "Cloud";
+        break;
+      }
+      case "LIGHTRAINSUN": {
+        return "Sun";
+        break;
+      }
+      case "LIGHTRAINTHUNDERSUN": {
+        return "Thunder";
+        break;
+      }
+      case "SLEETSUN": {
+        return "Sun";
+        break;
+      }
+      case "SNOWSUN": {
+        return "Snow";
+        break;
+      }
+      case "LIGHTRAIN": {
+        return "Rain";
+        break;
+      }
+      case "RAIN": {
+        return "Rain";
+        break;
+      }
+      case "RAINTHUNDER": {
+        return "Thunder";
+        break;
+      }
+      case "SLEET": {
+        return "Rain";
+        break;
+      }
+      case "SNOW": {
+        return "Snow";
+        break;
+      }
+      case "SNOWTHUNDER": {
+        return "Thunder";
+        break;
+      }
+      case "FOG": {
+        return "Fog";
+        break;
+      }
+      case "LIGHTCLOUD": {
+        return "Cloud";
+        break;
+      }
+      case "LIGHTRAINSUN": {
+        return "Sun";
+        break;
+      }
+      case "SNOWSUN": {
+        return "Snow";
+        break;
+      }
+      case "SLEETSUNTHUNDER": {
+        return "Thunder";
+        break;
+      }
+      case "SNOWSUNTHUNDER": {
+        return "Thunder";
+        break;
+      }
+      case "LIGHTRAINTHUNDER": {
+        return "Thunder";
+        break;
+      }
+      case "SLEETTHUNDER": {
+        return "Thunder";
+        break;
+      }
+      default: {
+        return 1;
+        break;
+      }
+    }
   }
-}
-
-
-
+};
 
 
 exports.init = view.init();
