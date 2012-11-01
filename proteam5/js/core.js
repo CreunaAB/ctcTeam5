@@ -107,7 +107,7 @@ view = {
       img = '<img id="icon" src="' + url + '" alt="bild" />';
 
     if (!$('#icon').length) {
-      $('h1').after(img);
+      $('.pup').before(img);
     } else {
       $('#icon').attr('src', url);
     }
