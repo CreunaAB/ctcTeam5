@@ -21,48 +21,32 @@ view = {
       var city = $('input').attr('value');
 
       console.log(city)
-  },
+      var geocoder = new google.maps.Geocoder();
 
-  getSongsAndIconForLocation : function(location) {
-     switch(location)  {
-      case "stockholm": {
-        $.ajax({
-          url: 'http://api.yr.no/weatherapi/locationforecast/1.8/?lat=59.33;lon=18.07',
-          dataType: 'xml',
-          success: view.onSuccess,
-          error: view.onFailure
-        });
-        break;
+      if (geocoder) {
+          geocoder.geocode({ 'address': city }, function (results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                  view.searchByLatLong(location);
+              }
+              else {
+                  console.log("Geocoding failed: " + status);
+              }
+          });
       }
-      case "puertorico": {
-       $.ajax({
-          url: 'http://api.yr.no/weatherapi/locationforecast/1.8/?lat=18.2613;lon=66.4360',
-          dataType: 'xml',
-          success: view.onSuccess,
-          error: view.onFailure
-        });
-        break;
-      }
-      case "sydney": {
-       $.ajax({
-          url: 'http://api.yr.no/weatherapi/locationforecast/1.8/?lat=33.8683;lon=151.2086',
-          dataType: 'xml',
-          success: view.onSuccess,
-          error: view.onFailure
-        });
-        break;
-      }
-      default : {
-        $.ajax({
-          url: 'http://api.yr.no/weatherapi/locationforecast/1.8/?lat=59.33;lon=18.07',
-          dataType: 'xml',
-          success: view.onSuccess,
-          error: view.onFailure
-        });
-      }
-    }
   },
+  searchByLatLong: function(location){
+      var lng = location.Ya;
+      var lat = location.Za;
 
+      $.ajax({
+          url: 'http://api.yr.no/weatherapi/locationforecast/1.8/',
+          method: 'GET',
+          data: {'lat': lat, 'lon': lng},
+          dataType: 'xml',
+          success: view.onSuccess,
+          error: view.onFailure
+      });
+  },
   doSearch : function() {
       // Listen to the eventlisteners indicating change of tab
       search.localResults = models.LOCALSEARCHRESULTS.APPEND;
@@ -71,7 +55,7 @@ view = {
 
       search.observe(models.EVENT.CHANGE, function() {
         search.tracks.forEach(function(track) {
-//          console.log(track);
+
           multiple_tracks_playlist.add(track.uri);
         });
       });
@@ -79,18 +63,17 @@ view = {
       console.log(multiple_tracks_playlist);
 
       var multiple_tracks_player = new views.List(multiple_tracks_playlist);
-//      multiple_tracks_player.track = null; // Don't play the track right away
+
       multiple_tracks_player.context = multiple_tracks_playlist;
 
       console.log(multiple_tracks_playlist.data.uri);
 
       models.player.play(multiple_tracks_playlist.data.uri);
 
-      var $playlist = $('#play-list'),
-          play_list_href = '<a href="' + multiple_tracks_playlist.uri + ' ">Play</a>';
+      var $playlist = $('#play-list');
+
       $playlist.html('');
       $playlist.append(multiple_tracks_player.node);
-//      $playlist.prepend(play_list_href);
 
       //important dont remove!!
       search.appendNext();

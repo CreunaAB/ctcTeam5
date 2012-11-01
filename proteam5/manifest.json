@@ -5,7 +5,9 @@
     "36x18": "HelloWorld.png"
   },
   "RequiredPermissions": [
-    "http://api.yr.no/"
+    "http://api.yr.no/",
+    "http://maps.google.com/"
+
   ],
   "AppName": {
     "en": "Creuna Tech Challenge"
