@@ -10,15 +10,21 @@
     <div class="app">
         <!--<header id="multiple-tracks-player"></header>-->
       <h1 class="header">#Proteam5</h1>
-      <div id="play-list"></div>
+
+
+      <h3>Change location</h3>
+      <a id="stockholm" href="#">Stockholm</a>
+      <a id="puertorico" href="#">Puerto rico</a>
+      <a id="sydney" href="#">Sydney</a>
+        <div id="play-list"></div>
     </div>
-  <script src="js/jquery.min.js"></script>
-  <script type="text/javascript">
-    window.onload = (function($) {
-        console.log($);
-      var sp = getSpotifyApi(1),
-        core = sp.require('js/core');
-    })();
-  </script>
+  
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+      window.onload = (function() {
+        var sp = getSpotifyApi(1),
+          core = sp.require('js/core');
+      })();
+    </script>
   </body>
 </html>
