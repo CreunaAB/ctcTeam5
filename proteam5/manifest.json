@@ -6,7 +6,13 @@
   },
   "RequiredPermissions": [
     "http://api.yr.no/",
-    "http://maps.google.com/"
+    "http://maps.google.com/",
+	"http://api.met.no/",
+	"https://*.googleapis.com",
+    "https://*.gstatic.com",
+    "https://*.gmaptiles.co.kr",
+    "https://earthbuilder.google.com",
+    "https://earthbuilder.googleapis.com"
   ],
   "AppName": {
     "en": "Weather Pup"

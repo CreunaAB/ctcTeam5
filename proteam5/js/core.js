@@ -67,9 +67,6 @@ view = {
 
       var $playlist = $('#play-list');
 
-      //$playlist.html('');
-      //$playlist.append(multiple_tracks_player.node);
-
       //important dont remove!!
       search.appendNext();
   },
@@ -127,8 +124,7 @@ view = {
       }, 200);
   },
   printCopy : function(copy){
-    $('.bubble').text(view.formatString(copy, view.city));
-    
+    $('.bubble').html(view.formatString(copy, view.city));
   },
   getSymbolId : function (symbol) {
     switch(symbol)  {
@@ -229,9 +225,10 @@ view = {
 
   formatString : function() {
       var s = arguments[0];
+
       for (var i = 0; i < arguments.length - 1; i++) {       
-        var reg = new RegExp("\\{" + i + "\\}", "gm");             
-        s = s.replace(reg, arguments[i + 1]);
+        var reg = new RegExp("\\{" + i + "\\}", "gm");
+        s = s.replace(reg, '<strong>' + arguments[i + 1] + '</strong>');
       }
 
       return s;
