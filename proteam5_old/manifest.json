@@ -1,0 +1,15 @@
+{
+  "BundleType": "Application",
+  "BundleIdentifier": "pup",
+  "AppIcon": {
+    "36x18": "/img/icon-18.png"
+  },
+  "RequiredPermissions": [
+    "http://api.yr.no/",
+    "http://maps.google.com/"
+  ],
+  "AppName": {
+    "en": "Weather Pup"
+  },
+  "SupportedLanguages": ["en"]
+}
