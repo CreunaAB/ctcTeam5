@@ -127,7 +127,7 @@ view = {
       }, 200);
   },
   printCopy : function(copy){
-    $('.bubble').text(view.formatString(copy, view.city));
+    $('.bubble').html(view.formatString(copy, view.city));
     
   },
   getSymbolId : function (symbol) {
@@ -231,7 +231,7 @@ view = {
       var s = arguments[0];
       for (var i = 0; i < arguments.length - 1; i++) {       
         var reg = new RegExp("\\{" + i + "\\}", "gm");             
-        s = s.replace(reg, arguments[i + 1]);
+        s = s.replace(reg, '<strong>' + arguments[i + 1] + '</strong>');
       }
 
       return s;
