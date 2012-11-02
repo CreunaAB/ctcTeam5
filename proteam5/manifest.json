@@ -1,16 +1,15 @@
 {
   "BundleType": "Application",
-  "BundleIdentifier": "proteam5",
+  "BundleIdentifier": "pup",
   "AppIcon": {
-    "36x18": "HelloWorld.png"
+    "36x18": "/img/icon-18.png"
   },
   "RequiredPermissions": [
     "http://api.yr.no/",
     "http://maps.google.com/"
-
   ],
   "AppName": {
-    "en": "Creuna Tech Challenge"
+    "en": "Weather Pup"
   },
   "SupportedLanguages": ["en"]
 }

@@ -3,14 +3,16 @@ html {
 }
 
 body {
-  padding:50px;
+  padding:50px 0;
 }
 
 h1 {
-  font-family: 'Paprika', cursive;
-  font-size:50px;
+  font-family: 'Covered By Your Grace', cursive;
+  font-size:55px;
+  color:#ab7654;
   text-align: center;
   margin-bottom:60px;
+  text-shadow:1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .start {
@@ -53,20 +55,18 @@ button {
 #icon {
   position:absolute;
   bottom:15px;
-  right:280px;
+  right:0px;
 }
 
 .dog {
   position: relative;
-  margin:0 auto 60px;
-  width: 100%;
-  overflow: hidden;
+  margin:0 auto;
+  width: 250px;
 }
 
 .pup {
   display:block;
-  float:right;
-  margin: 0 300px 0 0;
+  margin: 0 auto;
 }
 
 .bubble {
@@ -76,8 +76,10 @@ button {
   line-height: 40px;
   text-align: center;
   padding:30px;
-  border-radius: 25px;
-  margin:0 auto;
+  border-radius: 70px;
+  margin:0 auto 40px;
+  max-width:60%;
+  box-shadow: 3px 5px 5px #000;
   position: relative;
 }
 

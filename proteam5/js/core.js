@@ -34,7 +34,6 @@ view = {
       }
   },
   searchByLatLong: function(location){
-      console.log(location);
       var lng = location.Za;
       var lat = location.Ya;
 
@@ -60,13 +59,9 @@ view = {
         });
       });
 
-      console.log(multiple_tracks_playlist);
-
       var multiple_tracks_player = new views.List(multiple_tracks_playlist);
 
       multiple_tracks_player.context = multiple_tracks_playlist;
-
-      console.log(multiple_tracks_playlist.data.uri);
 
       models.player.play(multiple_tracks_playlist.data.uri);
 
@@ -119,13 +114,15 @@ view = {
         pup.removeClass('poop');
           $('#icon').animate({
               'bottom' : '150px'
-            }, 'slow', function () {
-            
+            }, 'slow', function () {            
              $('#icon').animate({
-                'right' : '250px',
+                'right' : '270px',
                 'width' : '100px'
-             }, 'slow');
-
+             }, 'slow', function () {
+              $('#icon').animate({
+                  'bottom' : '100px'
+               }, 'slow');
+             });
             });
       }, 200);
   },
