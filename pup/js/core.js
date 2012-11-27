@@ -1,26 +1,31 @@
 var sp = getSpotifyApi(1),
-  models = sp.require('sp://import/scripts/api/models'),
-  views = sp.require('sp://import/scripts/api/views'),
-  search = new models.Search('Rain'),
-  player = models.player,
-  view;
+    models = sp.require('sp://import/scripts/api/models'),
+    views = sp.require('sp://import/scripts/api/views'),
+    search = new models.Search('Rain'),
+    player = models.player,
+    view;
 
 view = {
   city : '',
-  init : function() {
 
+  init : function() {
       $('a').click(function(e){
         e.preventDefault();
+
         view.getSongsAndIconForLocation($(this).attr("id"));
       });
 
       $('button').click(view.getCity);
   },  
 
+  /**
+  * Get city from input
+  */
   getCity : function (e) {
       e.preventDefault();
-      var city = $('input').attr('value');
-      var geocoder = new google.maps.Geocoder();
+      var city = $('input').attr('value'),
+          geocoder = new google.maps.Geocoder();
+
       if (geocoder) {
           geocoder.geocode({ 'address': city }, function (results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
@@ -33,9 +38,14 @@ view = {
           });
       }
   },
+
+  /**
+  * Get weather from YR.no by using the coordinates for the city
+  */
   searchByLatLong: function(location){
-      var lng = location.Za;
-      var lat = location.Ya;
+      // These 'ab' & '$a' tend to change?! A week ago they were named Zy & Za, wtf!
+      var lng = location.ab,
+          lat = location.$a;
 
       $.ajax({
           url: 'http://api.yr.no/weatherapi/locationforecast/1.8/',
@@ -46,65 +56,75 @@ view = {
           error: view.onFailure
       });
   },
+
+  /**
+  * Do Spotify search 
+  */
   doSearch : function() {
-      // Listen to the eventlisteners indicating change of tab
       search.localResults = models.LOCALSEARCHRESULTS.APPEND;
       search.searchAlbums = false;
+
       var multiple_tracks_playlist = new models.Playlist();
 
       search.observe(models.EVENT.CHANGE, function() {
         var tracks = view.randomizeSearch(search.tracks);
+        
         tracks.forEach(function(track) {
           multiple_tracks_playlist.add(track.uri);
         });
       });
 
       var multiple_tracks_player = new views.List(multiple_tracks_playlist);
-
       multiple_tracks_player.context = multiple_tracks_playlist;
 
       models.player.play(multiple_tracks_playlist.data.uri);
 
-      var $playlist = $('#play-list');
-
-      //$playlist.html('');
-      //$playlist.append(multiple_tracks_player.node);
-
       //important dont remove!!
       search.appendNext();
   },
+
+  /**
+  * Randomize playlist
+  */
   randomizeSearch: function(results){
       var i = results.length;
-      if ( i == 0 ) return false;
-      while ( --i ) {
-          var j = Math.floor( Math.random() * ( i + 1 ) );
-          var tempi = results[i];
-          var tempj = results[j];
+
+      if (i == 0) {
+        return false;
+      }
+
+      while (--i) {
+          var j = Math.floor( Math.random() * ( i + 1 ) ),
+              tempi = results[i],
+              tempj = results[j];
+
           results[i] = tempj;
           results[j] = tempi;
       }
       return results;
   },
+
   onSuccess : function (data) {
     var firstActualTime = $(data).find("time")[1],
         symbol = $(firstActualTime).find("symbol").attr("id");
 
     searchWord = view.getSearchWordForSymbol(symbol);
     search = new models.Search("title:" + searchWord.term);
+
     view.doSearch();
     view.getSymbolImg(view.getSymbolId(symbol));
     view.printCopy(String(searchWord.copy));
   },
 
   onFailure : function(data) {
-      console.log(data, "fejl");
+      console.log('City cordinates failed, reason:', data);
   },
 
   getSymbolImg : function (symbol) {
     var url = 'http://api.met.no/weatherapi/weathericon/1.0/?symbol=' + symbol + ';content_type=image/png',
-      img = '<img id="icon" src="' + url + '" alt="bild" />',
-      pup = $('.pup'),
-      icon = $('#icon');
+        img = '<img id="icon" src="' + url + '" alt="bild" />',
+        pup = $('.pup'),
+        icon = $('#icon');
 
       icon.remove();
       pup.addClass('poop');
@@ -126,10 +146,11 @@ view = {
             });
       }, 200);
   },
+
   printCopy : function(copy){
-    $('.bubble').html(view.formatString(copy, view.city));
-    
+    $('.bubble').html(view.formatString(copy, view.city));    
   },
+
   getSymbolId : function (symbol) {
     switch(symbol)  {
       case "SUN": {
